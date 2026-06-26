@@ -13,7 +13,7 @@ function pad(n: number): string {
 }
 
 function frameSrc(i: number): string {
-  return `/frames/frame_${pad(i + 1)}.png`;
+  return `/frames/frame_${pad(i + 1)}.webp`;
 }
 
 function clamp(v: number, min: number, max: number): number {
