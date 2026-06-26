@@ -55,9 +55,8 @@ export default function ScrollCanvas() {
     const frames = framesRef.current;
     if (!canvas || !ctx || !frames[index]) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const cw = canvas.width / dpr;
-    const ch = canvas.height / dpr;
+    const cw = canvas.offsetWidth;
+    const ch = canvas.offsetHeight;
     const img = frames[index];
     const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     const dw = img.naturalWidth * s;
@@ -79,7 +78,9 @@ export default function ScrollCanvas() {
     const h = canvas.offsetHeight;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
-    ctxRef.current = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
+    if (ctx) ctx.scale(dpr, dpr);
+    ctxRef.current = ctx;
     if (currentRef.current >= 0) drawFrame(currentRef.current);
   };
 
@@ -120,7 +121,7 @@ export default function ScrollCanvas() {
         pin: true,
         pinSpacing: true,
         start: "top top",
-        end: "+=250vh",
+        end: "+=300vh",
         scrub: 1,
         onUpdate: (self) => {
           const idx = clamp(Math.floor(self.progress * (TOTAL_FRAMES - 1)), 0, TOTAL_FRAMES - 1);
