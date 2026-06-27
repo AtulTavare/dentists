@@ -66,10 +66,13 @@ export default function PinnedSections() {
 
   return (
     <div ref={pinRef} className="relative">
-      {/* Viewport overlay — always fills the screen during pin */}
-      <div className="absolute top-0 left-0 w-full h-screen overflow-hidden">
+      {/* Canvas — fixed to viewport so it always fills fullscreen */}
+      <div className="fixed top-0 left-0 w-screen h-screen -z-10 pointer-events-none">
         <ScrollCanvas progress={progress} />
+      </div>
 
+      {/* Content overlay — inside pinRef, aligns during pin */}
+      <div className="absolute top-0 left-0 w-full h-screen overflow-hidden z-10">
         {/* Section 1: Hero — progress 0-33% */}
         <div
           className="absolute inset-0 z-10 transition-opacity duration-500 pointer-events-none"
@@ -135,9 +138,9 @@ export default function PinnedSections() {
           style={{ opacity: s2 ? 1 : 0 }}
         >
           <div className="h-full flex items-end justify-center pb-20 pointer-events-auto">
-            <h2 className="font-sora text-4xl sm:text-5xl lg:text-6xl font-bold text-center leading-tight">
+            <h2 className="font-sora text-4xl sm:text-5xl lg:text-6xl font-bold text-center leading-tight text-text drop-shadow-sm">
               advanced dentistry,{" "}
-              <span className="gradient-text">beautifully delivered.</span>
+              beautifully delivered.
             </h2>
           </div>
         </div>
@@ -150,7 +153,7 @@ export default function PinnedSections() {
           <div className="h-full flex items-center justify-between px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto w-full pointer-events-auto">
             {/* Left */}
             <div className="max-w-xs">
-              <p className="text-accent text-xs font-semibold mb-4 uppercase tracking-widest">
+              <p className="text-xs font-semibold mb-4 uppercase tracking-widest text-text drop-shadow-sm">
                 {leftContent.tag}
               </p>
               <ul className="space-y-5">
@@ -158,10 +161,10 @@ export default function PinnedSections() {
                   const Icon = item.icon;
                   return (
                     <li key={item.text} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-accent-light flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon size={14} className="text-accent" />
+                      <div className="w-8 h-8 rounded-lg bg-white/80 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon size={14} className="text-text" />
                       </div>
-                      <span className="text-muted text-sm leading-relaxed">
+                      <span className="text-sm leading-relaxed text-text/90 drop-shadow-sm">
                         {item.text}
                       </span>
                     </li>
@@ -172,7 +175,7 @@ export default function PinnedSections() {
 
             {/* Right */}
             <div className="max-w-xs text-right">
-              <p className="text-accent text-xs font-semibold mb-4 uppercase tracking-widest">
+              <p className="text-xs font-semibold mb-4 uppercase tracking-widest text-text drop-shadow-sm">
                 {rightContent.tag}
               </p>
               <ul className="space-y-5">
@@ -180,10 +183,10 @@ export default function PinnedSections() {
                   const Icon = item.icon;
                   return (
                     <li key={item.text} className="flex items-start gap-3 flex-row-reverse">
-                      <div className="w-8 h-8 rounded-lg bg-accent-light flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Icon size={14} className="text-accent" />
+                      <div className="w-8 h-8 rounded-lg bg-white/80 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon size={14} className="text-text" />
                       </div>
-                      <span className="text-muted text-sm leading-relaxed">
+                      <span className="text-sm leading-relaxed text-text/90 drop-shadow-sm">
                         {item.text}
                       </span>
                     </li>
