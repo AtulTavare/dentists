@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 lg:px-8">
+      <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 lg:px-8" data-lenis-prevent>
         <nav className="max-w-7xl mx-auto glass rounded-full px-5 py-3 flex items-center justify-between shadow-lg shadow-black/5">
           <Link href="/" className="flex items-center gap-2.5 font-sora font-bold text-lg text-text">
             <span className="w-9 h-9 rounded-xl bg-accent flex items-center justify-center">

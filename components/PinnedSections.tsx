@@ -66,8 +66,8 @@ export default function PinnedSections() {
 
   return (
     <div ref={pinRef} className="relative">
-      {/* Canvas — fixed to viewport so it always fills fullscreen */}
-      <div className="fixed top-0 left-0 w-screen h-screen -z-10 pointer-events-none">
+      {/* Canvas — extends above pinRef by navbar height (h-20) to start from viewport top */}
+      <div className="absolute -top-20 left-0 w-full h-[calc(100vh+5rem)] overflow-hidden pointer-events-none -z-10">
         <ScrollCanvas progress={progress} />
       </div>
 
