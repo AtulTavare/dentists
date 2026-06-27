@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import PinnedSections from "@/components/PinnedSections";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
@@ -6,7 +6,7 @@ import Stats from "@/components/Stats";
 export default function Home() {
   return (
     <>
-      <Hero />
+      <PinnedSections />
       <Services />
       <About />
       <Stats />

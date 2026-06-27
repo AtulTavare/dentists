@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight, ArrowUpRight, Sparkles, Shield, Heart, Zap, CheckCircle, Stethoscope } from "lucide-react";
+import Reveal from "./Reveal";
 
 const services = [
   {
@@ -50,7 +51,8 @@ export default function Services() {
     <section className="py-24 px-4 sm:px-6 lg:px-8 bg-surface">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+        <Reveal>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
           <div className="max-w-xl">
             <p className="text-accent text-sm font-semibold mb-3 uppercase tracking-wider">
               Our Services
@@ -64,6 +66,7 @@ export default function Services() {
             Experience modern dental care delivered with comfort, precision, and attention to detail in a calm, welcoming environment.
           </p>
         </div>
+        </Reveal>
 
         {/* Bento Grid */}
         <div className="bento-grid">
@@ -102,6 +105,7 @@ export default function Services() {
         </div>
 
         {/* CTA */}
+        <Reveal>
         <div className="text-center mt-16">
           <a
             href="/services"
@@ -111,6 +115,7 @@ export default function Services() {
             <ArrowRight size={16} />
           </a>
         </div>
+        </Reveal>
       </div>
     </section>
   );

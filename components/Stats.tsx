@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ThumbsUp, Smile, Users } from "lucide-react";
+import Reveal from "./Reveal";
 
 const stats = [
   {
@@ -31,6 +32,7 @@ export default function Stats() {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        <Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
@@ -56,6 +58,7 @@ export default function Stats() {
             );
           })}
         </div>
+        </Reveal>
       </div>
     </section>
   );

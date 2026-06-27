@@ -1,10 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 240;
 
@@ -20,11 +16,10 @@ function clamp(v: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, v));
 }
 
-export default function ScrollCanvas() {
+export default function ScrollCanvas({ progress = 0 }: { progress?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const framesRef = useRef<HTMLImageElement[]>([]);
-  const rafRef = useRef<number>(0);
   const currentRef = useRef(-1);
 
   const [loading, setLoading] = useState(true);
@@ -111,55 +106,23 @@ export default function ScrollCanvas() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
-  // --- GSAP ScrollTrigger (desktop + !reduced) ---
-  useEffect(() => {
-    if (isMobile || reducedMotion || loading) return;
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: canvasRef.current?.parentElement,
-        pin: true,
-        pinSpacing: true,
-        start: "top top",
-        end: "+=300vh",
-        scrub: 1,
-        onUpdate: (self) => {
-          const idx = clamp(Math.floor(self.progress * (TOTAL_FRAMES - 1)), 0, TOTAL_FRAMES - 1);
-          if (idx !== currentRef.current) drawFrame(idx);
-        },
-      });
-    });
-
-    return () => ctx.revert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMobile, reducedMotion, loading]);
-
-  // --- Reduced motion: draw middle frame once ---
+  // --- React to progress prop ---
   useEffect(() => {
     if (loading) return;
-    if (reducedMotion && !isMobile) {
-      drawFrame(Math.floor(TOTAL_FRAMES / 2));
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, reducedMotion, isMobile]);
 
-  // --- Mobile: draw first frame once ---
-  useEffect(() => {
-    if (loading) return;
     if (isMobile) {
       drawFrame(0);
+    } else if (reducedMotion) {
+      drawFrame(Math.floor(TOTAL_FRAMES / 2));
+    } else {
+      const idx = clamp(
+        Math.floor(progress * (TOTAL_FRAMES - 1)),
+        0,
+        TOTAL_FRAMES - 1
+      );
+      if (idx !== currentRef.current) drawFrame(idx);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, isMobile]);
-
-  // --- Draw frame 0 on initial load (desktop normal) ---
-  useEffect(() => {
-    if (loading) return;
-    if (!isMobile && !reducedMotion) {
-      drawFrame(0);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  }, [loading, progress, isMobile, reducedMotion]);
 
   return (
     <>

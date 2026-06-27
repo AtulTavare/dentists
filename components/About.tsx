@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Star, Award, Users, Clock } from "lucide-react";
 import Link from "next/link";
+import Reveal from "./Reveal";
 
 const doctors = [
   {
@@ -36,6 +37,7 @@ export default function About() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           {/* Left — Image with floating badges */}
+          <Reveal x={-24}>
           <div
             className={`relative transition-all duration-700 ${
               mounted ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
@@ -72,8 +74,10 @@ export default function About() {
               </div>
             </div>
           </div>
+          </Reveal>
 
           {/* Right — Content */}
+          <Reveal x={24}>
           <div
             className={`transition-all duration-700 delay-200 ${
               mounted ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
@@ -145,6 +149,7 @@ export default function About() {
               <ArrowRight size={16} />
             </Link>
           </div>
+          </Reveal>
         </div>
       </div>
     </section>
